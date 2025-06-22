@@ -25,9 +25,9 @@ class _Login extends State<Login> {
   }
 
   void _submitForm() {
-    print(_email);
+    print("LOGIN PRESSED!");
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const ChatGPT()));
+        context, MaterialPageRoute(builder: (context) => const Dashboard()));
   }
 
   @override
@@ -42,7 +42,7 @@ class _Login extends State<Login> {
         LoginForm(
           handleLoginForm: _handleEmail,
           handleLoginFormSubmit: _submitForm,
-        )
+        ),
       ],
     );
   }

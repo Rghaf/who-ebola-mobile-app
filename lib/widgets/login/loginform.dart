@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:who_ebola/widgets/login/googleBtn.dart';
+import 'package:who_ebola/widgets/login/loginbtn.dart';
 import 'package:who_ebola/widgets/login/logininput.dart';
 import 'package:who_ebola/widgets/login/switchformlinks.dart';
 
+//This widget is Form that apeears in the login and register page
+// with multiple different inputs filds.
 class LoginForm extends StatefulWidget {
   const LoginForm({
     super.key,
@@ -18,8 +21,10 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginForm extends State<LoginForm> {
+  // This variable shows wich type of form is requested
   String formMode = "login";
 
+  //Chnage the formMode and by changing that, the type of form will change
   void _setFormMode(String mode) {
     setState(() {
       formMode = mode;
@@ -31,7 +36,7 @@ class _LoginForm extends State<LoginForm> {
     return Column(
       children: [
         const SizedBox(height: 20),
-
+        //Show the input fields of form based on what is the mode(login, register, etc.)
         if (formMode == "register") ...[
           LoginInput(
             fieldLabel: "Name",
@@ -50,7 +55,6 @@ class _LoginForm extends State<LoginForm> {
           ),
           const SizedBox(height: 20),
         ],
-
         if (formMode == "login" || formMode == "register") ...[
           LoginInput(
             fieldLabel: "Password",
@@ -67,30 +71,12 @@ class _LoginForm extends State<LoginForm> {
           ),
           const SizedBox(height: 20),
         ],
-        // if (formMode == "forget")
-        //   LoginInput(
-        //     fieldLabel: "Enter your email to reset password",
-        //     fieldType: TextInputType.emailAddress,
-        //     onChanged: widget.handleLoginForm,
-        //   ),
+        // Button for submit the form is here
         Container(
-          margin: const EdgeInsets.only(bottom: 20),
-          child: ElevatedButton(
-            onPressed: widget.handleLoginFormSubmit,
-            style: const ButtonStyle(
-              padding: WidgetStatePropertyAll(
-                EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-              ),
-            ),
-            child: Text(
-              formMode == "login"
-                  ? "Login"
-                  : formMode == "register"
-                      ? "Register"
-                      : "Send Reset Link",
-            ),
-          ),
-        ),
+            margin: const EdgeInsets.only(bottom: 20),
+            child: LoginBtn(
+                formMode: formMode,
+                submitFunction: widget.handleLoginFormSubmit)),
         const Row(
           children: [
             Expanded(child: Divider(thickness: 1)),
@@ -102,6 +88,7 @@ class _LoginForm extends State<LoginForm> {
           ],
         ),
         GooogleBtn(svgNumber: 0),
+        // Change the formMode
         SwitchFormLinks(
           firstLink: formMode == "login" ? "Register" : "Login",
           secondLink: formMode != "forget"
